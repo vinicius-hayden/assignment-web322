@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <title>Lego Collection</title>
+</head>
+
+<body>
+    <nav class="bg-red-800 p-4">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-white text-2xl font-bold"><a href="/">Lego Collection</a></h1>
+
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-white">Home</a>
+
+                    <div class="relative">
+                        <button id="themeDropdown" class="text-white focus:outline-none">Theme</button>
+                        <div id="themeDropdownContent"
+                            class="absolute top-full left-0 bg-gray-900 py-2 w-36 z-10 hidden">
+                            <a href="/lego/sets?theme=53"
+                                class="block px-4 py-2 text-white hover:bg-gray-700">Airport</a>
+                            <a href="/lego/sets?theme=60"
+                                class="block px-4 py-2 text-white hover:bg-gray-700">Hospital</a>
+                            <a href="/lego/sets?theme=61"
+                                class="block px-4 py-2 text-white hover:bg-gray-700">Police</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto">
+        <div class="hero min-h-screen bg-base-200">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Hello there! </h1>
+                    <br>
+                    <p class="text-gray-950 py-6">My name is Vinicius</p>
+                    <p class="text-gray-900 py-5">Meu nome é Vinícius</p>
+                    <p class="text-gray-800 py-4">Mi nombre es Vinicius</p>
+                    <p class="text-gray-700 py-3">僕の名前はヴィニシウスです。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="bg-white rounded-lg overflow-hidden shadow-md">
+                <img class="w-full h-32 md:h-full object-cover object-center"
+                    src="https://www.ultimate-guitar.com/static/article/news/5/79765_ver1538057056.jpg" alt="Your Image">
+            </div>
+            
+            <div class="bg-white rounded-lg overflow-hidden shadow-md p-4">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">About Me</h2>
+                    <p class="text-gray-700 mb-4">I'm passionate about many things including coding, hiking, and photography. Currently, I'm taking online courses to improve my skills in web development and machine learning.</p>
+
+                </div>
+                
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeDropdown = document.getElementById('themeDropdown');
+            const themeDropdownContent = document.getElementById('themeDropdownContent');
+            themeDropdown.addEventListener('click', () => {
+                themeDropdownContent.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!themeDropdown.contains(event.target)) {
+                    themeDropdownContent.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
