@@ -1,0 +1,23 @@
+<nav class="bg-red-800 p-4">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center">
+            <h1 class="text-white text-2xl font-bold"><a href="/">Lego Collection</a></h1>
+
+            <div class="flex items-center space-x-4">
+                <a class="text-white <%= (page == "/about") ? 'active' : '' %>" href="<%= page %>">
+                    <% if (page == '/about') { %>
+                        About
+                    <% } else { %>
+                        Home
+                    <% } %>
+                </a>
+
+                <div class="relative">
+                    
+                        <a class="text-white <%= (page == "/lego/sets") ? 'active' : '' %>" href="/lego/sets">View Collection</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
