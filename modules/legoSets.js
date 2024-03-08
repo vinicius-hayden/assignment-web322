@@ -32,7 +32,7 @@ function initialize() {
 async function getAllSets() {
   return new Promise(function (resolve) {
     sets.forEach((data) => {
-      console.log(data);
+      // console.log(data);
     });
     resolve(sets);
   })
@@ -49,7 +49,7 @@ async function getSetByNum(setNum) {
   //suggested solution
   return new Promise (function (resolve, reject) {
     const result = sets.find(({ set_num }) => set_num === setNum);
-    console.log(result);
+    // console.log(result);
     if (result == undefined) {
       reject("Unable to find request set");
     } else {
@@ -61,14 +61,8 @@ async function getSetByNum(setNum) {
 
 async function getSetsByTheme(theme) {
   return new Promise(function(resolve, reject) {
-    if (typeof theme !== 'string') {
-      reject("Theme must be a string");
-      return;
-    }
-    
-    const results = sets.filter((data) => !data.name.toLowerCase().includes(theme.toLowerCase()));
-    console.log(results);
-    if (results) {
+    const results = sets.filter((data) => data.theme.toLowerCase().includes(theme.toLowerCase()));
+    if (results.length > 0) {
       resolve(results);
     } else {
       reject("Unable to find requested sets");
