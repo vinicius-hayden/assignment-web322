@@ -101,7 +101,7 @@ async function getAllThemes() {
     try {
       const allThemes = Theme.findAll();
       resolve(allThemes);
-    } catch (error) { 
+    } catch (error) {
       reject(new Error(error));
     }
   })
@@ -130,7 +130,8 @@ async function getSetsByTheme(theme) {
         include: [Theme],
         where: {
           '$Theme.name$': {
-            [Sequelize.Op.iLike]: `%${theme}%`}
+            [Sequelize.Op.iLike]: `%${theme}%`
+          }
         }
       });
 
@@ -145,4 +146,61 @@ async function getSetsByTheme(theme) {
   });
 }
 
-module.exports = { initialize, getAllSets, getSetByNum, getSetsByTheme, getAllThemes };
+async function addSet(setData) {
+  console.log('setData:', setData);
+  return new Promise(async (resolve, reject) => {
+    try {
+      initialize();
+      await Set.create({
+        name: setData.name,
+        year: setData.year,
+        num_parts: setData.num_parts,
+        img_url: setData.img_url,
+        theme_id: setData.theme_id,
+        set_num: setData.set_num,
+      });
+      resolve();
+    } catch (error) {
+      reject(new Error(error));
+    }
+
+  });
+}
+
+async function editSet(set_num, setData) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const [rowsUpdated, [updatedSet]] = await Set.update(setData, {
+        where: { set_num: set_num },
+        returning: true
+      });
+
+      if (rowsUpdated === 0) {
+        throw new Error('Set not found or not updated');
+      }
+
+      resolve(updatedSet);
+    } catch (error) {
+      reject(new Error(error.errors[0].message));
+    }
+  });
+}
+
+async function deleteSet(set_num) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const deletedRows = await Set.destroy({
+        where: { set_num: set_num }
+      });
+
+      if (deletedRows === 0) {
+        throw new Error('Set not found or not deleted');
+      }
+      resolve();
+    } catch (error) {
+      reject(new Error(error));
+    }
+  })
+}
+
+module.exports = { initialize, getAllSets, getSetByNum, getSetsByTheme, getAllThemes, addSet, editSet, deleteSet };

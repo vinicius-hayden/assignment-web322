@@ -13,9 +13,11 @@
                 </a>
 
                 <div class="relative">
-                    
-                        <a class="text-white <%= (page == "/lego/sets") ? 'active' : '' %>" href="/lego/sets">View Collection</a>
-                    
+                        <li>
+                            <a class="text-white <%= (page == "/lego/sets") ? 'active' : '' %>" href="/lego/sets">View Collection</a>
+                            <a class="text-white <%= (page == "/lego/addSet") ? 'active' : '' %>" href="/lego/addSet">Add to Collection</a>
+                        </li>
+                        
                 </div>
             </div>
         </div>

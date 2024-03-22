@@ -16,7 +16,8 @@ const HTTP_PORT = process.env.PORT || 8080;
 const path = require('path');
 
 app.use(express.static('public'));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.listen(HTTP_PORT, () => {
@@ -24,13 +25,37 @@ app.listen(HTTP_PORT, () => {
     legoData.initialize();
 })
 
-
 app.get('/', (req,res) => {
     res.render("home");
 })
 
 app.get('/about', (req, res) => {
     res.render("about");
+})
+
+app.get('/lego/editSet/:num', async (req, res) => {
+    try {
+        const setNum = req.params.num;
+
+        const set = await legoData.getSetByNum(setNum);
+        const themes = await legoData.getAllThemes();
+        res.render('editSet', { themes, set });
+
+    } catch (error) {
+        res.status(404).render('404', { message: error.message });
+    }
+});
+
+app.post('/lego/editSet', async (req, res) => {
+    try {
+        const setData = req.body;
+        const setNum = setData.set_num;
+
+        await legoData.editSet(setNum, setData);
+        res.redirect('/lego/sets');
+    } catch (error) {
+        res.render('500', { message: `I'm sorry, but we have encountered the following error: ${error}` });
+    }
 })
 
 app.get('/lego/sets', async (req, res) => {
@@ -63,13 +88,35 @@ app.get('/lego/addSet', async (req, res) => {
         res.render("addSet", {set: legoSets});
     } else {
         res.status(404).render("404", {message: "Not able to run the database"});
-    }
-
-    
+    }    
 })
 
+app.post('/lego/addSet', async (req, res) => {
+    try {
+        await legoData.addSet(req.body);
+        res.redirect('/lego/sets');
+    } catch (error) {
+        res.render("500", { message: `I'm sorry, but we have encountered the following error: ${error}` });
+    }
+});
+
+app.get('/lego/deleteSet/:num', async (req, res) => {
+    try {
+        const setNum = req.params.num;
+
+        if (!setNum) {
+            throw new Error('Set number is missing');
+        }
+
+        await legoData.deleteSet(setNum);
+
+        res.redirect('/lego/sets');
+    } catch (error) {
+        res.render('500', { message: `I'm sorry, but we have encountered the following error: ${error}` });
+    }
+});
+
 app.get('/lego/sets/:set_num', async (req, res) => {
-    console.log('/lego/sets/:set_num');
     try {
         const setNum = req.params.set_num;
         const legoSets = await legoData.getSetByNum(setNum);
