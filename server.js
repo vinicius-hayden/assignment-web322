@@ -56,6 +56,18 @@ app.get('/lego/sets', async (req, res) => {
     }
 });
 
+app.get('/lego/addSet', async (req, res) => {
+    let legoSets = await legoData.getAllThemes();
+
+    if (legoSets) {
+        res.render("addSet", {set: legoSets});
+    } else {
+        res.status(404).render("404", {message: "Not able to run the database"});
+    }
+
+    
+})
+
 app.get('/lego/sets/:set_num', async (req, res) => {
     console.log('/lego/sets/:set_num');
     try {
