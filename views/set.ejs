@@ -8,7 +8,6 @@
     <title>Lego Collection</title>
 </head>
 
-
 <body>
     <%- include('./partials/navbar', {page: '/about' }) %>
 
@@ -34,9 +33,10 @@
                     <p class="text-gray-600"><span class="font-bold">Theme: </span><%= set.Theme.name %></p>
                     <p class="text-gray-600"><span class="font-bold">Number of Parts: </span> <%= set.num_parts %></p>
                     <br>
-                    <a href="/lego/editSet/<%= set.set_num %>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <a href="/lego/editSet/<%= set.set_num %>" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </a>
+                    <br>
                     <br>
                     <p class="text-xl">Quote of the Day: <span id="quote"></span></p>
                     <p class="text-sm">- <span id="author"></span></p>

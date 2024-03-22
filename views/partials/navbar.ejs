@@ -13,13 +13,29 @@
                 </a>
 
                 <div class="relative">
-                        <li>
-                            <a class="text-white <%= (page == "/lego/sets") ? 'active' : '' %>" href="/lego/sets">View Collection</a>
-                            <a class="text-white <%= (page == "/lego/addSet") ? 'active' : '' %>" href="/lego/addSet">Add to Collection</a>
-                        </li>
-                        
+                    <button id="collectionBtn" class="text-white focus:outline-none">
+                        Collection
+                        <svg class="h-6 w-6 inline-block ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="collectionDropdown" class="absolute bg-gray-900 rounded-md mt-2 py-2 w-48 z-50 hidden">
+                        <a class="block px-4 py-2 text-sm text-white hover:bg-gray-800" href="/lego/sets">View Collection</a>
+                        <a class="block px-4 py-2 text-sm text-white hover:bg-gray-800" href="/lego/addSet">Add to Collection</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const collectionBtn = document.getElementById("collectionBtn");
+        const collectionDropdown = document.getElementById("collectionDropdown");
+
+        collectionBtn.addEventListener("click", function () {
+            collectionDropdown.classList.toggle("hidden");
+        });
+    });
+</script>
