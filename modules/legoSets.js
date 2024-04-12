@@ -13,7 +13,6 @@ const { Sequelize } = require('sequelize');
 
 dotenv.config();
 
-
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   dialect: 'postgres',
@@ -74,15 +73,7 @@ const Set = sequelize.define('Set', {
 Set.belongsTo(Theme, { foreignKey: 'theme_id' });
 
 function initialize() {
-  return new Promise(function (resolve, reject) {
-    sequelize.sync()
-      .then(() => {
-        resolve();
-      })
-      .catch(error => {
-        reject(error);
-      })
-  })
+  return sequelize.sync();
 }
 
 async function getAllSets() {
@@ -147,7 +138,6 @@ async function getSetsByTheme(theme) {
 }
 
 async function addSet(setData) {
-  console.log('setData:', setData);
   return new Promise(async (resolve, reject) => {
     try {
       initialize();
