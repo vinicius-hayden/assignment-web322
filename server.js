@@ -220,4 +220,8 @@ app.get('*', (req, res) => {
   res.status(404).render("404", { message: "No view matched for a specific route" });
 });
 
-connectDB();
+connectDB().then(() => {
+  app.listen(process.env.MONGOPORT, () => {
+    console.log("Server is running");
+  })
+});
