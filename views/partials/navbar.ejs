@@ -4,6 +4,11 @@
             <h1 class="text-white text-2xl font-bold"><a href="/">Lego Collection</a></h1>
 
             <div class="flex items-center space-x-4">
+                
+                <% if (session.user) { %>
+                    <p class="select-none text-m text-white px-4 py-2">Hello, <%= session.user.userName %></p>
+                <% } %>
+                
                 <a class="text-white <%= (page == "/about") ? 'active' : '' %>" href="<%= page %>">
                     <% if (page == '/about') { %>
                         About
@@ -11,7 +16,7 @@
                         Home
                     <% } %>
                 </a>
-
+                
                 <div class="relative">
                     <button id="collectionBtn" class="text-white focus:outline-none">
                         Collection
@@ -19,9 +24,17 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
                     </button>
-                    <div id="collectionDropdown" class="absolute bg-gray-900 rounded-md mt-2 py-2 w-48 z-50 hidden">
-                        <a class="block px-4 py-2 text-sm text-white hover:bg-gray-800" href="/lego/sets">View Collection</a>
-                        <a class="block px-4 py-2 text-sm text-white hover:bg-gray-800" href="/lego/addSet">Add to Collection</a>
+                    <div id="collectionDropdown" class="absolute bg-gray-200 rounded-md mt-2 py-2 w-48 z-50 hidden">
+                        <% if (session.user) { %>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/lego/sets">View Collection</a>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/lego/addSet">Add to Collection</a>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/userHistory">User History</a>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/logout">Log Out</a>
+                        <% } else { %>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/lego/sets">View Collection</a>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/login">Login</a>
+                            <a class="block px-4 py-2 text-m text-black hover:bg-gray-100" href="/register">Register</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
